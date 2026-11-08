@@ -18,6 +18,8 @@ class KeepAliveReceiver : BroadcastReceiver() {
         val device = IntentCompat.getParcelableExtra(intent, BluetoothDevice.EXTRA_DEVICE, BluetoothDevice::class.java)
 
         if (device == null || !BudsDevice.isBuds(context, device)) return
+        // Keep the lid scan alive (Android drops it when Bluetooth restarts); a no-op within a minute of the last start.
+        LidScanner.ensure(context)
 
         if (!BudsService.backgroundAllowed(context)) {
             Log.d("BudsConn", "KeepAlive: $action ignored (background service off)")
@@ -32,6 +34,10 @@ class KeepAliveReceiver : BroadcastReceiver() {
             BluetoothDevice.ACTION_ACL_CONNECTED -> {
                 BudsDevice.remember(context, device)
                 Log.d("BudsConn", "KeepAlive: ACL_CONNECTED (fallback connect in ${ACL_FALLBACK_MS}ms)")
+                // The buds' first sign of life after the lid opens: the connect popup shows now, before RFCOMM is up.
+                startNoThrow({
+                    context.startForegroundService(Intent(context, BudsService::class.java).setAction(BudsService.ACTION_EARLY_POPUP))
+                }) { PacketLogger.error("KeepAlive popup start", it) }
                 fireForceConnect(context, ACL_FALLBACK_MS)
             }
             BluetoothDevice.ACTION_ACL_DISCONNECTED -> {

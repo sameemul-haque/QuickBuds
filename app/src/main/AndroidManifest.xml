@@ -18,6 +18,8 @@
     <uses-permission android:name="android.permission.POST_PROMOTED_NOTIFICATIONS" />
     <!-- Widget taps tick through the vibrator (Haptics.tick); no view of ours is on screen then. -->
     <uses-permission android:name="android.permission.VIBRATE" />
+    <!-- The connect popup (ui/ConnectPopup.kt) is a system overlay. -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
     <!-- Game equalizer only: which app is in the foreground. The user grants it in Settings > Usage access. -->
     <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS" tools:ignore="ProtectedPermissions" />
@@ -263,6 +265,11 @@
             android:name=".ui.UpdateJobService"
             android:exported="false"
             android:permission="android.permission.BIND_JOB_SERVICE" />
+
+        <!-- Lid-open scan results (bluetooth/LidScanner.kt); only the system Bluetooth stack sends them, via our PendingIntent. -->
+        <receiver
+            android:name=".bluetooth.LidScanReceiver"
+            android:exported="false" />
 
         <receiver
             android:name=".bluetooth.KeepAliveReceiver"

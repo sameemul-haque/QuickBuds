@@ -23,6 +23,7 @@ import com.spizganed.quickbuds.protocol.Capabilities
 import com.spizganed.quickbuds.protocol.FeatureSync
 import com.spizganed.quickbuds.protocol.FeatureSyncConfig
 import com.spizganed.quickbuds.protocol.OpoProtocol
+import com.spizganed.quickbuds.ui.ConnectPopup
 import com.spizganed.quickbuds.ui.OnCallGesture
 import com.spizganed.quickbuds.ui.ThemeRes
 import com.spizganed.quickbuds.widget.AncWidgetProvider
@@ -40,6 +41,53 @@ class BudsService : Service(), BudsConnectionManager.Listener {
 
     /** The delayed ACL connect (KeepAliveReceiver), so a deliberate disconnect cancels it. */
     private var aclConnect: Runnable? = null
+
+    /** The connect popup (ConnectPopup): shown once per real connect, filled when the battery report comes. */
+    private var popup: ConnectPopup? = null
+    /** True from a connect until the popup shows: it waits for the first battery report, or [POPUP_WAIT_MS]. */
+    private var popupPending = false
+    /** When the link last dropped in this process, 0 = it never was up. A quick reconnect (setting restart, a blip) shows no popup. */
+    private var linkDownAt = 0L
+    private var linkWasUp = false
+    /** Set by our own sleep: the reconnect at unlock is not the user opening the case. */
+    private var skipNextPopup = false
+
+    private val popupFallback = Runnable { if (popupPending) showPopup() }
+
+    private fun popupWanted(): Boolean {
+        if (!ConnectPopup.ready(this)) return false
+        if (asleep || com.spizganed.quickbuds.QuickBudsApp.started > 0) return false   // a QuickBuds screen on view already shows the levels
+        val locked = getSystemService(android.app.KeyguardManager::class.java).isKeyguardLocked ||
+            !getSystemService(android.os.PowerManager::class.java).isInteractive
+        if (locked) return false
+        return !linkWasUp || System.currentTimeMillis() - linkDownAt > POPUP_MIN_GAP_MS
+    }
+
+    /**
+     * The buds' ACL link came up (lid opened): show the card at once, with empty rings. The RFCOMM link and the
+     * battery report follow about a second later and fill it. A link that is already up shows nothing.
+     */
+    private fun earlyPopup(fromBle: Boolean) {
+        if (manager?.isConnected() == true || popup?.showing == true || !popupWanted()) return
+        // The buds send the same "free" advert for ~5 s after the lid closes: not an open.
+        if (fromBle && System.currentTimeMillis() - lastRealDown < BLE_CLOSE_GUARD_MS) {
+            statusLog("[SVC] Lid advert right after a disconnect: lid closing, no popup")
+            return
+        }
+        statusLog("[SVC] Popup early (${if (fromBle) "BLE lid" else "ACL"})")
+        val st = WidgetStateStore.read(this).copy(leftBattery = -1, caseBattery = -1, rightBattery = -1)
+        (popup ?: ConnectPopup(this).also { popup = it }).show(st, connecting = true)
+    }
+
+    private fun showPopup() {
+        popupPending = false
+        handler.removeCallbacks(popupFallback)
+        val st = WidgetStateStore.read(this)
+        if (!st.connected) return
+        if (popup?.showing == true) { popup?.update(st, connecting = false); return }
+        statusLog("[SVC] Popup: L=${st.leftBattery} C=${st.caseBattery} R=${st.rightBattery}")
+        (popup ?: ConnectPopup(this).also { popup = it }).show(st)
+    }
 
     private fun statusLog(msg: String) {
         Log.d("BudsConn", msg)
@@ -102,6 +150,7 @@ class BudsService : Service(), BudsConnectionManager.Listener {
         override fun onReceive(context: Context, intent: Intent) {
             val state = intent.getIntExtra(android.bluetooth.BluetoothAdapter.EXTRA_STATE, -1)
             if (state == android.bluetooth.BluetoothAdapter.STATE_OFF || state == android.bluetooth.BluetoothAdapter.STATE_TURNING_OFF) scheduleIdleCheck(BT_OFF_MS)
+            if (state == android.bluetooth.BluetoothAdapter.STATE_ON) LidScanner.ensure(this@BudsService, force = true)
         }
     }
 
@@ -118,6 +167,10 @@ class BudsService : Service(), BudsConnectionManager.Listener {
         asleep = true
         statusLog("[SVC] Sleep (screen locked)")
         handler.removeCallbacksAndMessages(null)
+        // Only a link we close here comes back at the unlock; buds that connect after it were opened by the user.
+        skipNextPopup = manager?.isConnected() == true
+        popupPending = false
+        popup?.dismiss()
         // The game-EQ poll must not wake the phone every 2 s.
         gameEq.stop()
         manager?.disconnect()
@@ -169,6 +222,7 @@ class BudsService : Service(), BudsConnectionManager.Listener {
         registerReceiver(screenReceiver, screen)
         registerReceiver(bluetoothStateReceiver, IntentFilter(android.bluetooth.BluetoothAdapter.ACTION_STATE_CHANGED))
         scheduleIdleCheck(if (bluetoothOff()) BT_OFF_MS else IDLE_MS)
+        LidScanner.ensure(this)
         getSharedPreferences(ThemeRes.PREFS_NAME, MODE_PRIVATE).registerOnSharedPreferenceChangeListener(prefListener)
         // Started by a Bluetooth event while locked: stay asleep until the unlock.
         if (backgroundAllowed(this) && shouldSleep()) asleep = true
@@ -183,6 +237,7 @@ class BudsService : Service(), BudsConnectionManager.Listener {
         if (intent != null) startForegroundService()
 
         when (intent?.action) {
+            ACTION_EARLY_POPUP -> earlyPopup(intent.getBooleanExtra(EXTRA_FROM_BLE, false))
             ACTION_FORCE_CONNECT -> {
                 val withAudio = intent.getBooleanExtra(EXTRA_WITH_AUDIO, false)
                 val user = intent.getBooleanExtra(EXTRA_USER_CONNECT, false)
@@ -505,6 +560,7 @@ class BudsService : Service(), BudsConnectionManager.Listener {
     override fun onDestroy() {
         statusLog("[SVC] onDestroy")
         handler.removeCallbacksAndMessages(null)
+        popup?.dismiss()
         gameEq.stop()
         // Close the RFCOMM link with the service: with the background service switched off,
         // leaving the app stops the service, and a live socket must not outlive it.
@@ -554,6 +610,32 @@ class BudsService : Service(), BudsConnectionManager.Listener {
         gameEq.update()
         updateNotification()
         if (connected) handler.removeCallbacks(idleCheck) else scheduleIdleCheck(IDLE_MS)
+        onConnectedPopup(connected, before.connected)
+    }
+
+    private fun onConnectedPopup(connected: Boolean, wasConnected: Boolean) {
+        if (connected && !wasConnected) {
+            val want = popupWanted() && !skipNextPopup
+            skipNextPopup = false
+            linkWasUp = true
+            if (popup?.showing == true) {
+                // Shown early on ACL: it only waits for the levels.
+                popupPending = true
+                handler.removeCallbacks(popupFallback)
+                handler.postDelayed(popupFallback, POPUP_WAIT_MS)
+            } else if (want) {
+                popupPending = true
+                handler.removeCallbacks(popupFallback)
+                handler.postDelayed(popupFallback, POPUP_WAIT_MS)
+            }
+        } else if (!connected && wasConnected) {
+            linkDownAt = System.currentTimeMillis()
+            if (linkWasUp) lastRealDown = linkDownAt
+            popupPending = false
+            handler.removeCallbacks(popupFallback)
+            // Lid closed or buds gone: the card leaves with them.
+            popup?.dismiss()
+        }
     }
 
     override fun onBattery(
@@ -574,6 +656,7 @@ class BudsService : Service(), BudsConnectionManager.Listener {
         WidgetStateStore.write(this, st)
         AncWidgetProvider.refreshAll(this)
         updateNotification()
+        if (popupPending) showPopup() else if (popup?.showing == true) popup?.update(st)
     }
 
     override fun onWearState(leftRaw: Int, rightRaw: Int, caseSt: Int) {
@@ -601,6 +684,7 @@ class BudsService : Service(), BudsConnectionManager.Listener {
             WidgetStateStore.write(this, st)
             AncWidgetProvider.refreshAll(this)
             updateNotification()
+            if (popup?.showing == true) popup?.update(st)
         }
         if (wasWorn && !isWorn(st.leftStatus) && !isWorn(st.rightStatus)) smartPause()
     }
@@ -727,6 +811,19 @@ class BudsService : Service(), BudsConnectionManager.Listener {
 
         /** The link gets this long to come up before an idle service stops. */
         private const val IDLE_MS = 60_000L
+        /** The popup waits this long for the first battery report, then shows what it has. */
+        private const val POPUP_WAIT_MS = 2_500L
+        /** A reconnect sooner than this after a drop shows no popup. */
+        private const val POPUP_MIN_GAP_MS = 3_000L
+        const val ACTION_EARLY_POPUP = "com.spizganed.quickbuds.EARLY_POPUP"
+        const val EXTRA_FROM_BLE = "from_ble"
+        /**
+         * A lid advert this soon after a real disconnect is the tail of the lid-closing burst. Measured on Enco Buds2: the
+         * closing burst starts 4-6 s BEFORE the link drops (still connected, so ignored), so only a short guard is needed.
+         */
+        private const val BLE_CLOSE_GUARD_MS = 1_500L
+        /** The last disconnect of a link that was really up, kept for the process (the service may restart in between). */
+        @Volatile private var lastRealDown = 0L
         /** Bluetooth off: nothing can connect, so the service stops soon. */
         private const val BT_OFF_MS = 3_000L
 

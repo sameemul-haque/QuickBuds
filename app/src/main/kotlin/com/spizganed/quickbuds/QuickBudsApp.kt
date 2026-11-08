@@ -60,8 +60,7 @@ import java.util.Locale
  */
 class QuickBudsApp : Application() {
 
-    /** Activities currently started, for the background-service switch. */
-    private var started = 0
+
 
     // The crash handler goes in first, before onCreate and before any content provider or
     // activity runs, so a crash in the earliest app code still leaves a report.
@@ -203,6 +202,10 @@ class QuickBudsApp : Application() {
     companion object {
         /** Subfolder of Download holding crash reports (and the Dev Tools log exports). */
         const val PUBLIC_DIR = "QuickBuds"
+
+        /** Activities currently started (on screen), for the background-service switch and the connect popup. */
+        @Volatile var started = 0
+            private set
     }
 }
 

@@ -48,6 +48,24 @@ class SettingsActivity : Activity() {
         }
         section(R.string.settings_appearance, themeRow, layoutRow)
 
+        // Connect popup: a switch, and a row that shows it now (or asks for "Display over other apps" first).
+        val popupSwitch = SettingRowFactory.buildSwitch(this, ConnectPopup.enabled(this))
+        popupSwitch.setOnCheckedChangeListener { _, on ->
+            prefs.edit().putBoolean(ConnectPopup.PREF_POPUP, on).apply()
+            com.spizganed.quickbuds.bluetooth.LidScanner.ensure(this, force = true)
+            if (on && !android.provider.Settings.canDrawOverlays(this)) askOverlay()
+        }
+        val popupRow = SettingRowFactory.build(this, R.drawable.ic_earbud, R.string.settings_popup_title,
+            R.string.settings_popup_sub, popupSwitch) { popupSwitch.performClick() }
+        val popupPreview = link(R.drawable.ic_eye, R.string.settings_popup_preview_title, R.string.settings_popup_preview_sub) {
+            if (!android.provider.Settings.canDrawOverlays(this)) askOverlay()
+            else ConnectPopup(this).show(com.spizganed.quickbuds.widget.WidgetStateStore.read(this).let {
+                // Not connected: show sample levels, so the preview still looks like the real thing.
+                if (it.leftBattery < 0 && it.rightBattery < 0) it.copy(leftBattery = 80, caseBattery = 60, rightBattery = 75) else it
+            })
+        }
+        section(R.string.settings_popup_section, popupRow, popupPreview)
+
         val fullNotifRow = toggle(R.drawable.ic_battery, R.string.settings_full_notif_title, R.string.settings_full_notif_sub,
             BudsService.PREF_FULL_NOTIFICATION, true)
         val general = mutableListOf<android.view.View>(
@@ -107,6 +125,14 @@ class SettingsActivity : Activity() {
 
     private var themeSubtitle: android.widget.TextView? = null
 
+    private fun askOverlay() {
+        android.widget.Toast.makeText(this, R.string.settings_popup_permission, android.widget.Toast.LENGTH_LONG).show()
+        runCatching {
+            startActivity(Intent(android.provider.Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+                android.net.Uri.parse("package:$packageName")))
+        }
+    }
+
     /**
      * Background service switch. Turning it off asks first (the widget and the automatic reconnect
      * need the service); Cancel puts the switch back without saving.
@@ -144,6 +170,8 @@ class SettingsActivity : Activity() {
     override fun onResume() {
         super.onResume()
         themeSubtitle?.text = ThemeRes.palette(this).name
+        // Back from the Display over other apps screen: start (or stop) the lid scan to match. A running scan is left alone.
+        com.spizganed.quickbuds.bluetooth.LidScanner.ensure(this)
     }
 
     companion object {

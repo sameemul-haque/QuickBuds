@@ -694,4 +694,15 @@
     <string name="support_github_action">Star on GitHub</string>
     <string name="support_later">Later</string>
     <string name="support_never">Do not ask again</string>
+    <!-- Connect popup -->
+    <string name="settings_popup_section">Connect popup</string>
+    <string name="settings_popup_title">Popup when the buds connect</string>
+    <string name="settings_popup_sub">A card with the battery of each bud and the case slides up when you open the case</string>
+    <string name="settings_popup_preview_title">Show the popup now</string>
+    <string name="settings_popup_preview_sub">See how it looks</string>
+    <string name="settings_popup_permission">Allow QuickBuds to display over other apps, so the popup can show</string>
+    <string name="popup_title_fallback">Your earbuds</string>
+    <string name="popup_connected">Connected</string>
+    <string name="popup_connecting">Connecting…</string>
+    <string name="popup_close">Close</string>
 </resources>
