@@ -270,6 +270,14 @@
         <receiver
             android:name=".bluetooth.LidScanReceiver"
             android:exported="false" />
+        <!-- Restarts the lid scan after an app update, which drops it. Needs no permission. -->
+        <receiver
+            android:name=".bluetooth.LidUpdateReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+            </intent-filter>
+        </receiver>
 
         <receiver
             android:name=".bluetooth.KeepAliveReceiver"

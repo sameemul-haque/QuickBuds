@@ -66,7 +66,9 @@ model name and a `BudsStatusView`. `BudsService` shows it on the first of three 
 
 1. `LidScanner` / `LidScanReceiver`: a hardware-filtered PendingIntent BLE scan for the buds' lid advert
    ([PROTOCOL.md](./PROTOCOL.md), "The lid advert"). It runs without the app process. The service and
-   `KeepAliveReceiver` restart it, because Android ends it when Bluetooth turns off.
+   `KeepAliveReceiver` restart it, because Android ends it when Bluetooth turns off. `LidUpdateReceiver`
+   restarts it after an app update. A reboot drops it as well; the app holds no RECEIVE_BOOT_COMPLETED, so the
+   first buds connect after a reboot restarts it.
 2. `KeepAliveReceiver` on `ACL_CONNECTED`: the card shows with empty rings, before RFCOMM is up.
 3. The RFCOMM connect, then the first battery report (or 2.5 s). The rings sweep to the levels.
 

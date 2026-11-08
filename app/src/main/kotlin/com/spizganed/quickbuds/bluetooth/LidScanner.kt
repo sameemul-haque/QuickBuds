@@ -146,3 +146,45 @@ class LidScanReceiver : BroadcastReceiver() {
         @Volatile private var lastHit = 0L
     }
 }
+
+/**
+ * Starts the lid scan after an app update: Android drops a PendingIntent scan then, and without this the first lid
+ * open afterwards falls back to the slower ACL trigger. MY_PACKAGE_REPLACED needs no permission.
+ *
+ * A reboot drops the scan too. The app does not hold RECEIVE_BOOT_COMPLETED for it: the first buds connect after a
+ * reboot (KeepAliveReceiver, ACL_CONNECTED) starts the scan again, so only that one popup comes on the slower signal.
+ * Bluetooth can be restarting during the update, so it retries for up to [WAIT_MS].
+ */
+class LidUpdateReceiver : BroadcastReceiver() {
+
+    override fun onReceive(context: Context, intent: Intent) {
+        val action = intent.action
+        if (action != Intent.ACTION_MY_PACKAGE_REPLACED) return
+        val app = context.applicationContext
+        if (!ConnectPopup.ready(app) || !BudsService.backgroundAllowed(app)) return
+        val pending = goAsync()
+        val handler = android.os.Handler(android.os.Looper.getMainLooper())
+        val started = System.currentTimeMillis()
+        val attempt = object : Runnable {
+            override fun run() {
+                val on = app.getSystemService(BluetoothManager::class.java)?.adapter?.isEnabled == true
+                if (on) {
+                    Log.d("BudsConn", "[LID] ${action.substringAfterLast('.')}: starting the lid scan")
+                    LidScanner.ensure(app, force = true)
+                    pending.finish()
+                } else if (System.currentTimeMillis() - started < WAIT_MS) {
+                    handler.postDelayed(this, 2_000L)
+                } else {
+                    // Bluetooth is off: the service starts the scan when it turns on and the buds connect.
+                    pending.finish()
+                }
+            }
+        }
+        handler.post(attempt)
+    }
+
+    private companion object {
+        /** Under the 10 s a goAsync receiver may hold. */
+        const val WAIT_MS = 8_000L
+    }
+}
