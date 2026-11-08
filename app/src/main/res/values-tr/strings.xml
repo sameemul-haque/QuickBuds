@@ -604,4 +604,15 @@
     <string name="support_github_action">GitHub\'da yıldız ver</string>
     <string name="support_later">Sonra</string>
     <string name="support_never">Bir daha sorma</string>
+    <!-- Connect popup -->
+    <string name="settings_popup_section">Bağlantı açılır penceresi</string>
+    <string name="settings_popup_title">Kulaklıklar bağlanınca açılır pencere</string>
+    <string name="settings_popup_sub">Kutuyu açtığınızda her kulaklığın ve kutunun pilini gösteren bir kart belirir</string>
+    <string name="settings_popup_preview_title">Şimdi göster</string>
+    <string name="settings_popup_preview_sub">Nasıl göründüğüne bakın</string>
+    <string name="settings_popup_permission">Açılır pencerenin görünmesi için QuickBuds\'ın diğer uygulamaların üzerinde gösterilmesine izin verin</string>
+    <string name="popup_title_fallback">Kulaklıklarınız</string>
+    <string name="popup_connected">Bağlandı</string>
+    <string name="popup_connecting">Bağlanıyor…</string>
+    <string name="popup_close">Kapat</string>
 </resources>

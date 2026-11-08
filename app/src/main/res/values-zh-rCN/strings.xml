@@ -606,4 +606,15 @@
     <string name="support_github_action">在 GitHub 上加星标</string>
     <string name="support_later">以后再说</string>
     <string name="support_never">不再询问</string>
+    <!-- Connect popup -->
+    <string name="settings_popup_section">连接弹窗</string>
+    <string name="settings_popup_title">耳机连接时弹窗</string>
+    <string name="settings_popup_sub">打开充电盒时，弹出显示左右耳机和充电盒电量的卡片</string>
+    <string name="settings_popup_preview_title">立即显示弹窗</string>
+    <string name="settings_popup_preview_sub">看看效果</string>
+    <string name="settings_popup_permission">请允许 QuickBuds 显示在其他应用上层，以便显示弹窗</string>
+    <string name="popup_title_fallback">你的耳机</string>
+    <string name="popup_connected">已连接</string>
+    <string name="popup_connecting">正在连接…</string>
+    <string name="popup_close">关闭</string>
 </resources>

@@ -606,4 +606,15 @@
     <string name="support_github_action">ให้ดาวบน GitHub</string>
     <string name="support_later">ไว้ทีหลัง</string>
     <string name="support_never">ไม่ต้องถามอีก</string>
+    <!-- Connect popup -->
+    <string name="settings_popup_section">ป๊อปอัปเมื่อเชื่อมต่อ</string>
+    <string name="settings_popup_title">ป๊อปอัปเมื่อหูฟังเชื่อมต่อ</string>
+    <string name="settings_popup_sub">เมื่อเปิดเคส จะมีการ์ดแสดงแบตเตอรี่ของหูฟังแต่ละข้างและเคสเลื่อนขึ้นมา</string>
+    <string name="settings_popup_preview_title">แสดงป๊อปอัปตอนนี้</string>
+    <string name="settings_popup_preview_sub">ดูว่าหน้าตาเป็นอย่างไร</string>
+    <string name="settings_popup_permission">อนุญาตให้ QuickBuds แสดงทับแอปอื่น เพื่อให้ป๊อปอัปแสดงได้</string>
+    <string name="popup_title_fallback">หูฟังของคุณ</string>
+    <string name="popup_connected">เชื่อมต่อแล้ว</string>
+    <string name="popup_connecting">กำลังเชื่อมต่อ…</string>
+    <string name="popup_close">ปิด</string>
 </resources>

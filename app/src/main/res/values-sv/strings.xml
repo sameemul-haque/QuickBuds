@@ -604,4 +604,15 @@
     <string name="support_github_action">Ge en stjärna på GitHub</string>
     <string name="support_later">Senare</string>
     <string name="support_never">Fråga inte igen</string>
+    <!-- Connect popup -->
+    <string name="settings_popup_section">Anslutningsruta</string>
+    <string name="settings_popup_title">Ruta när hörlurarna ansluter</string>
+    <string name="settings_popup_sub">När du öppnar fodralet glider ett kort upp med batteriet för varje lur och fodralet</string>
+    <string name="settings_popup_preview_title">Visa nu</string>
+    <string name="settings_popup_preview_sub">Se hur den ser ut</string>
+    <string name="settings_popup_permission">Tillåt QuickBuds att visas över andra appar så att rutan kan visas</string>
+    <string name="popup_title_fallback">Dina hörlurar</string>
+    <string name="popup_connected">Ansluten</string>
+    <string name="popup_connecting">Ansluter…</string>
+    <string name="popup_close">Stäng</string>
 </resources>

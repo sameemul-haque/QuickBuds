@@ -606,4 +606,15 @@
     <string name="support_github_action">Gắn sao trên GitHub</string>
     <string name="support_later">Để sau</string>
     <string name="support_never">Không hỏi lại</string>
+    <!-- Connect popup -->
+    <string name="settings_popup_section">Cửa sổ khi kết nối</string>
+    <string name="settings_popup_title">Cửa sổ khi tai nghe kết nối</string>
+    <string name="settings_popup_sub">Khi mở hộp sạc, một thẻ hiện lên với pin của từng bên tai nghe và hộp</string>
+    <string name="settings_popup_preview_title">Hiện ngay</string>
+    <string name="settings_popup_preview_sub">Xem trông thế nào</string>
+    <string name="settings_popup_permission">Cho phép QuickBuds hiển thị trên ứng dụng khác để cửa sổ có thể hiện ra</string>
+    <string name="popup_title_fallback">Tai nghe của bạn</string>
+    <string name="popup_connected">Đã kết nối</string>
+    <string name="popup_connecting">Đang kết nối…</string>
+    <string name="popup_close">Đóng</string>
 </resources>

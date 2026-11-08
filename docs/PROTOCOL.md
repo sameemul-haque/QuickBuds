@@ -285,6 +285,34 @@ after the reads.
 The app does not poll after that. Battery, wearing, ANC and game mode arrive as pushes `[TESTED]`.
 Was: a keep-alive poll. Is: none. No stale link seen `[TESTED]`.
 
+### The lid advert (BLE)
+
+With the case closed the buds are silent. The moment the lid opens they send BLE advertisements, about 1-3 s before
+the classic (ACL) link to the phone comes up. ColorOS uses them for its instant popup; QuickBuds uses them for the
+connect popup (`bluetooth/LidScanner.kt`). `[CAPTURE]` OPPO Enco Buds2, BlueZ scan and the app's own scan on a POCO F7:
+
+```
+company 0x079A (OPPO), data after the company id:
+10 48 06 3f 00 01 98 | 05 | bc 9a 78 56 34 12 | 00 | a1 a1 | b5 02
+0                  6   7    8 ............ 13   14   15 16
+```
+
+| Byte | Meaning |
+|---|---|
+| 0-6 | Constant in every capture. |
+| 7 | A state: `05` just opened and while closing, then `00`, `04` or `01` while connected. Not decoded. |
+| 8-13 | The buds' public address, byte-reversed. The advert also carries the address as its source and the name. |
+| 14 | `00` not connected to a phone, `01` connected. |
+| 15-16 | One per bud. The first packets after the lid opens come from each bud alone (`00 a1` and `a1 00`), then both (`a1 a1`). |
+
+Timeline: lid opens, the buds advertise `14 = 00`; the phone connects about 2 s later and byte 14 turns `01`.
+Some time after the connect the adverts may stop. When the lid closes, the buds send `05 … 00` for about 5 s,
+starting 4-6 s before the link to the phone drops. So a "not connected" advert while the link is up, or just after
+it drops, is the lid closing; one after that is the lid opening.
+
+Other models are not captured yet. On a model with a different layout, or no advert, the scan never matches and the
+popup comes on the ACL / RFCOMM connect instead. On Android 8-11 a BLE scan also needs location on.
+
 ### What the buds are and accept
 
 - **Bitmap** `0x8100` (section 5) `[VENDOR]`: `00`, then bytes read LSB first. Bit n enables a fixed list of commands. The app checks every command against the bitmap. It does not send a command with no bit.

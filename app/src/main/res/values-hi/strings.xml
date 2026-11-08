@@ -606,4 +606,15 @@
     <string name="support_github_action">GitHub पर स्टार दें</string>
     <string name="support_later">बाद में</string>
     <string name="support_never">फिर न पूछें</string>
+    <!-- Connect popup -->
+    <string name="settings_popup_section">कनेक्ट पॉपअप</string>
+    <string name="settings_popup_title">बड्स कनेक्ट होने पर पॉपअप</string>
+    <string name="settings_popup_sub">केस खोलने पर हर बड और केस की बैटरी वाला कार्ड ऊपर आता है</string>
+    <string name="settings_popup_preview_title">अभी पॉपअप दिखाएँ</string>
+    <string name="settings_popup_preview_sub">देखें कैसा दिखता है</string>
+    <string name="settings_popup_permission">पॉपअप दिखाने के लिए QuickBuds को दूसरे ऐप्स के ऊपर दिखने की अनुमति दें</string>
+    <string name="popup_title_fallback">आपके ईयरबड्स</string>
+    <string name="popup_connected">कनेक्टेड</string>
+    <string name="popup_connecting">कनेक्ट हो रहा है…</string>
+    <string name="popup_close">बंद करें</string>
 </resources>

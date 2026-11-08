@@ -604,4 +604,15 @@
     <string name="support_github_action">Поставити зірку на GitHub</string>
     <string name="support_later">Пізніше</string>
     <string name="support_never">Більше не питати</string>
+    <!-- Connect popup -->
+    <string name="settings_popup_section">Вікно підключення</string>
+    <string name="settings_popup_title">Вікно під час підключення навушників</string>
+    <string name="settings_popup_sub">Коли відкриваєте кейс, з\'являється картка із зарядом кожного навушника та кейса</string>
+    <string name="settings_popup_preview_title">Показати зараз</string>
+    <string name="settings_popup_preview_sub">Подивитися, як виглядає</string>
+    <string name="settings_popup_permission">Дозвольте QuickBuds показ поверх інших застосунків, щоб вікно могло з\'явитися</string>
+    <string name="popup_title_fallback">Ваші навушники</string>
+    <string name="popup_connected">Підключено</string>
+    <string name="popup_connecting">Підключення…</string>
+    <string name="popup_close">Закрити</string>
 </resources>

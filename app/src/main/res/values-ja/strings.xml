@@ -604,4 +604,15 @@
     <string name="support_github_action">GitHub でスターを付ける</string>
     <string name="support_later">後で</string>
     <string name="support_never">今後は表示しない</string>
+    <!-- Connect popup -->
+    <string name="settings_popup_section">接続ポップアップ</string>
+    <string name="settings_popup_title">イヤホン接続時のポップアップ</string>
+    <string name="settings_popup_sub">ケースを開けると、左右のイヤホンとケースのバッテリーを示すカードが表示されます</string>
+    <string name="settings_popup_preview_title">今すぐ表示</string>
+    <string name="settings_popup_preview_sub">表示を確認</string>
+    <string name="settings_popup_permission">ポップアップを表示するには、QuickBuds に他のアプリの上に重ねて表示する権限を許可してください</string>
+    <string name="popup_title_fallback">お使いのイヤホン</string>
+    <string name="popup_connected">接続済み</string>
+    <string name="popup_connecting">接続中…</string>
+    <string name="popup_close">閉じる</string>
 </resources>

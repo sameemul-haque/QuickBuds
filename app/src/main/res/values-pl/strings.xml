@@ -604,4 +604,15 @@
     <string name="support_github_action">Daj gwiazdkę na GitHubie</string>
     <string name="support_later">Później</string>
     <string name="support_never">Nie pytaj ponownie</string>
+    <!-- Connect popup -->
+    <string name="settings_popup_section">Okno połączenia</string>
+    <string name="settings_popup_title">Okno po połączeniu słuchawek</string>
+    <string name="settings_popup_sub">Po otwarciu etui wysuwa się karta z baterią każdej słuchawki i etui</string>
+    <string name="settings_popup_preview_title">Pokaż teraz</string>
+    <string name="settings_popup_preview_sub">Zobacz, jak wygląda</string>
+    <string name="settings_popup_permission">Zezwól QuickBuds na wyświetlanie nad innymi aplikacjami, aby okno mogło się pojawić</string>
+    <string name="popup_title_fallback">Twoje słuchawki</string>
+    <string name="popup_connected">Połączono</string>
+    <string name="popup_connecting">Łączenie…</string>
+    <string name="popup_close">Zamknij</string>
 </resources>

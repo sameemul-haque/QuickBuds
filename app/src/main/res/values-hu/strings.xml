@@ -604,4 +604,15 @@
     <string name="support_github_action">Csillag a GitHubon</string>
     <string name="support_later">Később</string>
     <string name="support_never">Ne kérdezz újra</string>
+    <!-- Connect popup -->
+    <string name="settings_popup_section">Csatlakozási ablak</string>
+    <string name="settings_popup_title">Ablak a fülhallgatók csatlakozásakor</string>
+    <string name="settings_popup_sub">A tok kinyitásakor felcsúszik egy kártya mindkét fülhallgató és a tok akkujával</string>
+    <string name="settings_popup_preview_title">Megjelenítés most</string>
+    <string name="settings_popup_preview_sub">Nézze meg, hogy néz ki</string>
+    <string name="settings_popup_permission">Engedélyezze, hogy a QuickBuds más alkalmazások felett jelenjen meg</string>
+    <string name="popup_title_fallback">Az Ön fülhallgatói</string>
+    <string name="popup_connected">Csatlakozva</string>
+    <string name="popup_connecting">Csatlakozás…</string>
+    <string name="popup_close">Bezárás</string>
 </resources>

@@ -604,4 +604,15 @@
     <string name="support_github_action">Auf GitHub einen Stern geben</string>
     <string name="support_later">Später</string>
     <string name="support_never">Nicht mehr fragen</string>
+    <!-- Connect popup -->
+    <string name="settings_popup_section">Verbindungs-Popup</string>
+    <string name="settings_popup_title">Popup beim Verbinden der Buds</string>
+    <string name="settings_popup_sub">Beim Öffnen des Etuis erscheint eine Karte mit dem Akku beider Buds und des Etuis</string>
+    <string name="settings_popup_preview_title">Popup jetzt zeigen</string>
+    <string name="settings_popup_preview_sub">So sieht es aus</string>
+    <string name="settings_popup_permission">Erlaube QuickBuds, über anderen Apps einzublenden, damit das Popup erscheinen kann</string>
+    <string name="popup_title_fallback">Deine Earbuds</string>
+    <string name="popup_connected">Verbunden</string>
+    <string name="popup_connecting">Verbinde…</string>
+    <string name="popup_close">Schließen</string>
 </resources>

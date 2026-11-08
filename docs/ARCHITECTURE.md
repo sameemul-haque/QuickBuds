@@ -59,6 +59,23 @@ The buds are the only source of truth. The app is a remote control.
 
 The desktop link thread (`desktop-tauri/src/session.rs`) runs the same sequence and the same rules.
 
+### The connect popup (Android)
+
+A card (`ui/ConnectPopup.kt`, a `TYPE_APPLICATION_OVERLAY` window) slides up when the buds connect, with the
+model name and a `BudsStatusView`. `BudsService` shows it on the first of three signals:
+
+1. `LidScanner` / `LidScanReceiver`: a hardware-filtered PendingIntent BLE scan for the buds' lid advert
+   ([PROTOCOL.md](./PROTOCOL.md), "The lid advert"). It runs without the app process. The service and
+   `KeepAliveReceiver` restart it, because Android ends it when Bluetooth turns off.
+2. `KeepAliveReceiver` on `ACL_CONNECTED`: the card shows with empty rings, before RFCOMM is up.
+3. The RFCOMM connect, then the first battery report (or 2.5 s). The rings sweep to the levels.
+
+No card while a QuickBuds screen is started (`QuickBudsApp.started`), while the phone is locked, after the
+service's own sleep, or on a reconnect within 3 s of a drop. A lid advert while connected, or within 1.5 s of a
+disconnect, is the lid closing. The card leaves on disconnect, a swipe, the close button, or after 7 s.
+It is off by default. It needs Display over other apps (Settings > Connect popup asks for it), and the lid scan runs
+only while the switch is on and that permission is granted (`ConnectPopup.ready`).
+
 ### A setting change
 
 See "From a button to the buds and back". A write that restarts the link (Hi-Res, power saving, codec)

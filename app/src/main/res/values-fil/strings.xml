@@ -604,4 +604,15 @@
     <string name="support_github_action">Mag-star sa GitHub</string>
     <string name="support_later">Mamaya</string>
     <string name="support_never">Huwag nang magtanong</string>
+    <!-- Connect popup -->
+    <string name="settings_popup_section">Popup sa pagkonekta</string>
+    <string name="settings_popup_title">Popup kapag kumonekta ang buds</string>
+    <string name="settings_popup_sub">May card na lalabas na may baterya ng bawat bud at ng case kapag binuksan mo ang case</string>
+    <string name="settings_popup_preview_title">Ipakita ang popup ngayon</string>
+    <string name="settings_popup_preview_sub">Tingnan ang itsura</string>
+    <string name="settings_popup_permission">Payagan ang QuickBuds na lumabas sa ibabaw ng ibang app para maipakita ang popup</string>
+    <string name="popup_title_fallback">Ang iyong earbuds</string>
+    <string name="popup_connected">Nakakonekta</string>
+    <string name="popup_connecting">Kumokonekta…</string>
+    <string name="popup_close">Isara</string>
 </resources>

@@ -604,4 +604,15 @@
     <string name="support_github_action">Dát hvězdičku na GitHubu</string>
     <string name="support_later">Později</string>
     <string name="support_never">Už se neptat</string>
+    <!-- Connect popup -->
+    <string name="settings_popup_section">Okno při připojení</string>
+    <string name="settings_popup_title">Okno při připojení sluchátek</string>
+    <string name="settings_popup_sub">Po otevření pouzdra se vysune karta s baterií obou sluchátek a pouzdra</string>
+    <string name="settings_popup_preview_title">Zobrazit okno</string>
+    <string name="settings_popup_preview_sub">Podívejte se, jak vypadá</string>
+    <string name="settings_popup_permission">Povolte QuickBuds zobrazení přes jiné aplikace, aby se okno mohlo zobrazit</string>
+    <string name="popup_title_fallback">Vaše sluchátka</string>
+    <string name="popup_connected">Připojeno</string>
+    <string name="popup_connecting">Připojování…</string>
+    <string name="popup_close">Zavřít</string>
 </resources>

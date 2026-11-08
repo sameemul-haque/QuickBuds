@@ -604,4 +604,15 @@
     <string name="support_github_action">GitHub에서 별 주기</string>
     <string name="support_later">나중에</string>
     <string name="support_never">다시 묻지 않기</string>
+    <!-- Connect popup -->
+    <string name="settings_popup_section">연결 팝업</string>
+    <string name="settings_popup_title">이어버드 연결 시 팝업</string>
+    <string name="settings_popup_sub">케이스를 열면 각 이어버드와 케이스의 배터리가 담긴 카드가 올라옵니다</string>
+    <string name="settings_popup_preview_title">지금 팝업 보기</string>
+    <string name="settings_popup_preview_sub">어떻게 보이는지 확인</string>
+    <string name="settings_popup_permission">팝업을 표시하려면 QuickBuds가 다른 앱 위에 표시되도록 허용하세요</string>
+    <string name="popup_title_fallback">내 이어버드</string>
+    <string name="popup_connected">연결됨</string>
+    <string name="popup_connecting">연결 중…</string>
+    <string name="popup_close">닫기</string>
 </resources>

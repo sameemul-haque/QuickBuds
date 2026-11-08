@@ -604,4 +604,15 @@
     <string name="support_github_action">Dai una stella su GitHub</string>
     <string name="support_later">Più tardi</string>
     <string name="support_never">Non chiedere più</string>
+    <!-- Connect popup -->
+    <string name="settings_popup_section">Popup di connessione</string>
+    <string name="settings_popup_title">Popup quando gli auricolari si connettono</string>
+    <string name="settings_popup_sub">All\'apertura della custodia compare una scheda con la batteria di ogni auricolare e della custodia</string>
+    <string name="settings_popup_preview_title">Mostra ora</string>
+    <string name="settings_popup_preview_sub">Guarda come appare</string>
+    <string name="settings_popup_permission">Consenti a QuickBuds di apparire sopra le altre app per mostrare il popup</string>
+    <string name="popup_title_fallback">I tuoi auricolari</string>
+    <string name="popup_connected">Connesso</string>
+    <string name="popup_connecting">Connessione…</string>
+    <string name="popup_close">Chiudi</string>
 </resources>

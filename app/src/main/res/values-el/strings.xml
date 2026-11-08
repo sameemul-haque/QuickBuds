@@ -604,4 +604,15 @@
     <string name="support_github_action">Αστέρι στο GitHub</string>
     <string name="support_later">Αργότερα</string>
     <string name="support_never">Να μην ερωτηθώ ξανά</string>
+    <!-- Connect popup -->
+    <string name="settings_popup_section">Αναδυόμενο σύνδεσης</string>
+    <string name="settings_popup_title">Αναδυόμενο όταν συνδέονται τα ακουστικά</string>
+    <string name="settings_popup_sub">Όταν ανοίγετε τη θήκη, εμφανίζεται μια κάρτα με την μπαταρία κάθε ακουστικού και της θήκης</string>
+    <string name="settings_popup_preview_title">Εμφάνιση τώρα</string>
+    <string name="settings_popup_preview_sub">Δείτε πώς φαίνεται</string>
+    <string name="settings_popup_permission">Επιτρέψτε στο QuickBuds την εμφάνιση πάνω από άλλες εφαρμογές για να φαίνεται το αναδυόμενο</string>
+    <string name="popup_title_fallback">Τα ακουστικά σας</string>
+    <string name="popup_connected">Συνδέθηκε</string>
+    <string name="popup_connecting">Σύνδεση…</string>
+    <string name="popup_close">Κλείσιμο</string>
 </resources>

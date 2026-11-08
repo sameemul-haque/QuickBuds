@@ -604,4 +604,15 @@
     <string name="support_github_action">Dar uma estrela no GitHub</string>
     <string name="support_later">Depois</string>
     <string name="support_never">Não perguntar de novo</string>
+    <!-- Connect popup -->
+    <string name="settings_popup_section">Pop-up de conexão</string>
+    <string name="settings_popup_title">Pop-up quando os fones conectam</string>
+    <string name="settings_popup_sub">Ao abrir o estojo, surge um cartão com a bateria de cada fone e do estojo</string>
+    <string name="settings_popup_preview_title">Mostrar agora</string>
+    <string name="settings_popup_preview_sub">Veja como fica</string>
+    <string name="settings_popup_permission">Permita que o QuickBuds apareça sobre outros apps para o pop-up poder aparecer</string>
+    <string name="popup_title_fallback">Seus fones</string>
+    <string name="popup_connected">Conectado</string>
+    <string name="popup_connecting">Conectando…</string>
+    <string name="popup_close">Fechar</string>
 </resources>

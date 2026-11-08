@@ -604,4 +604,15 @@
     <string name="support_github_action">GitHub-এ স্টার দিন</string>
     <string name="support_later">পরে</string>
     <string name="support_never">আর জিজ্ঞাসা করবেন না</string>
+    <!-- Connect popup -->
+    <string name="settings_popup_section">কানেক্ট পপআপ</string>
+    <string name="settings_popup_title">বাডস কানেক্ট হলে পপআপ</string>
+    <string name="settings_popup_sub">কেস খুললে প্রতিটি বাড ও কেসের ব্যাটারিসহ একটি কার্ড উঠে আসে</string>
+    <string name="settings_popup_preview_title">এখনই পপআপ দেখান</string>
+    <string name="settings_popup_preview_sub">দেখুন কেমন দেখায়</string>
+    <string name="settings_popup_permission">পপআপ দেখাতে QuickBuds-কে অন্য অ্যাপের উপরে দেখানোর অনুমতি দিন</string>
+    <string name="popup_title_fallback">আপনার ইয়ারবাডস</string>
+    <string name="popup_connected">কানেক্টেড</string>
+    <string name="popup_connecting">কানেক্ট হচ্ছে…</string>
+    <string name="popup_close">বন্ধ করুন</string>
 </resources>

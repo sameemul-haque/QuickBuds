@@ -604,4 +604,15 @@
     <string name="support_github_action">Mettre une étoile sur GitHub</string>
     <string name="support_later">Plus tard</string>
     <string name="support_never">Ne plus demander</string>
+    <!-- Connect popup -->
+    <string name="settings_popup_section">Fenêtre de connexion</string>
+    <string name="settings_popup_title">Fenêtre à la connexion des écouteurs</string>
+    <string name="settings_popup_sub">À l\'ouverture du boîtier, une carte affiche la batterie de chaque écouteur et du boîtier</string>
+    <string name="settings_popup_preview_title">Afficher maintenant</string>
+    <string name="settings_popup_preview_sub">Voir le rendu</string>
+    <string name="settings_popup_permission">Autorisez QuickBuds à s\'afficher par-dessus les autres applis pour que la fenêtre apparaisse</string>
+    <string name="popup_title_fallback">Vos écouteurs</string>
+    <string name="popup_connected">Connecté</string>
+    <string name="popup_connecting">Connexion…</string>
+    <string name="popup_close">Fermer</string>
 </resources>

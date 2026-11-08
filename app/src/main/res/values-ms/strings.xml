@@ -604,4 +604,15 @@
     <string name="support_github_action">Beri bintang di GitHub</string>
     <string name="support_later">Nanti</string>
     <string name="support_never">Jangan tanya lagi</string>
+    <!-- Connect popup -->
+    <string name="settings_popup_section">Pop timbul sambungan</string>
+    <string name="settings_popup_title">Pop timbul apabila buds bersambung</string>
+    <string name="settings_popup_sub">Kad dengan bateri setiap bud dan bekas muncul apabila anda membuka bekas</string>
+    <string name="settings_popup_preview_title">Tunjuk pop timbul sekarang</string>
+    <string name="settings_popup_preview_sub">Lihat rupanya</string>
+    <string name="settings_popup_permission">Benarkan QuickBuds dipaparkan di atas apl lain supaya pop timbul boleh muncul</string>
+    <string name="popup_title_fallback">Earbud anda</string>
+    <string name="popup_connected">Bersambung</string>
+    <string name="popup_connecting">Menyambung…</string>
+    <string name="popup_close">Tutup</string>
 </resources>

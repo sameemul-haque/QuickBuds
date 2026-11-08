@@ -604,4 +604,15 @@
     <string name="support_github_action">Dă o stea pe GitHub</string>
     <string name="support_later">Mai târziu</string>
     <string name="support_never">Nu mai întreba</string>
+    <!-- Connect popup -->
+    <string name="settings_popup_section">Fereastră la conectare</string>
+    <string name="settings_popup_title">Fereastră când căștile se conectează</string>
+    <string name="settings_popup_sub">La deschiderea carcasei apare un card cu bateria fiecărei căști și a carcasei</string>
+    <string name="settings_popup_preview_title">Arată acum</string>
+    <string name="settings_popup_preview_sub">Vezi cum arată</string>
+    <string name="settings_popup_permission">Permite QuickBuds să afișeze peste alte aplicații, ca fereastra să apară</string>
+    <string name="popup_title_fallback">Căștile tale</string>
+    <string name="popup_connected">Conectat</string>
+    <string name="popup_connecting">Se conectează…</string>
+    <string name="popup_close">Închide</string>
 </resources>

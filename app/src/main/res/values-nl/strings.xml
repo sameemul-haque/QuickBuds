@@ -604,4 +604,15 @@
     <string name="support_github_action">Geef een ster op GitHub</string>
     <string name="support_later">Later</string>
     <string name="support_never">Niet meer vragen</string>
+    <!-- Connect popup -->
+    <string name="settings_popup_section">Verbindingspop-up</string>
+    <string name="settings_popup_title">Pop-up als de buds verbinden</string>
+    <string name="settings_popup_sub">Bij het openen van de case verschijnt een kaart met de batterij van elke bud en de case</string>
+    <string name="settings_popup_preview_title">Pop-up nu tonen</string>
+    <string name="settings_popup_preview_sub">Bekijk hoe het eruitziet</string>
+    <string name="settings_popup_permission">Sta QuickBuds toe om over andere apps te tonen, zodat de pop-up kan verschijnen</string>
+    <string name="popup_title_fallback">Je oordopjes</string>
+    <string name="popup_connected">Verbonden</string>
+    <string name="popup_connecting">Verbinden…</string>
+    <string name="popup_close">Sluiten</string>
 </resources>
